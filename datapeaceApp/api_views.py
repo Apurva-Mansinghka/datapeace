@@ -1,3 +1,4 @@
+from rest_framework import viewsets
 from rest_framework.generics import ListAPIView, CreateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
@@ -5,6 +6,10 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from datapeaceApp.serializers import UserSerializer
 from datapeaceApp.models import User
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('firstName')
+    serializer_class = UserSerializer
 
 class UsersPagination(LimitOffsetPagination):
     default_limit = 5
